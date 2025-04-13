@@ -15,6 +15,9 @@ const Promotion = () => {
   targetDate.setDate(targetDate.getDate() + 3)
 
   useEffect(() => {
+    const targetDate = new Date()
+    targetDate.setDate(targetDate.getDate() + 3)
+
     const timerInterval = setInterval(() => {
       const currentTime = new Date()
       const timeDifference = Math.max(Number(targetDate) - Number(currentTime), 0)
@@ -28,13 +31,10 @@ const Promotion = () => {
 
       if (timeDifference === 0) {
         clearInterval(timerInterval)
-        // You can add code here to handle what happens when the target date is reached.
       }
     }, 1000)
 
-    return () => {
-      clearInterval(timerInterval) // Cleanup the interval when the component unmounts.
-    }
+    return () => clearInterval(timerInterval)
   }, [])
 
   return (

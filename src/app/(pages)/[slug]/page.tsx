@@ -103,7 +103,6 @@ export async function generateStaticParams() {
   }
 }
 
-
 export async function generateMetadata({ params: { slug = 'home' } }): Promise<Metadata> {
   const { isEnabled: isDraftMode } = draftMode()
 
