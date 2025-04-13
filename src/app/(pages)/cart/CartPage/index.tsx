@@ -103,12 +103,17 @@ export const CartPage: React.FC<{
 
                 <div className={classes.row}>
                   <p className={classes.cartTotal}>Delivery Charge</p>
-                  <p className={classes.cartTotal}>$0</p>
+                  <p className={classes.cartTotal}>KES 0</p>
                 </div>
+
+                {/* <div className={classes.row}>
+                  <p className={classes.cartTotal}>Grand Total</p>
+                  <p className={classes.cartTotal}>{cartTotal.formatted}</p>
+                </div> */}
 
                 <div className={classes.row}>
                   <p className={classes.cartTotal}>Grand Total</p>
-                  <p className={classes.cartTotal}>{cartTotal.formatted}</p>
+                  <p className={classes.cartTotal}>{cartTotal.formatted.replace('$', 'KES ')}</p>
                 </div>
 
                 <Button
