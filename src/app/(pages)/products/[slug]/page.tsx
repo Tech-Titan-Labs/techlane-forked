@@ -65,10 +65,20 @@ export default async function Product({ params: { slug } }) {
   )
 }
 
+// export async function generateStaticParams() {
+//   try {
+//     const products = await fetchDocs<ProductType>('products')
+//     return products?.map(({ slug }) => slug)
+//   } catch (error) {
+//     return []
+//   }
+// }
+
 export async function generateStaticParams() {
   try {
     const products = await fetchDocs<ProductType>('products')
-    return products?.map(({ slug }) => slug)
+
+    return products.filter(p => typeof p === 'object' && 'slug' in p).map(p => ({ slug: p.slug }))
   } catch (error) {
     return []
   }
