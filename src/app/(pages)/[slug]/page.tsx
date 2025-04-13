@@ -96,8 +96,12 @@ export default async function Page({ params: { slug = 'home' } }) {
 export async function generateStaticParams() {
   try {
     const pages = await fetchDocs<Page>('pages')
-    if (!Array.isArray(pages)) return [] // add this line
-    return pages.map(({ slug }) => slug)
+
+    if (!Array.isArray(pages)) return []
+
+    return pages
+      .filter((page): page is Page => typeof page === 'object' && page !== null && 'slug' in page)
+      .map(page => page.slug)
   } catch (error) {
     return []
   }
