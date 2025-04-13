@@ -83,15 +83,26 @@ export default async function Page({ params: { slug = 'home' } }) {
   )
 }
 
+// export async function generateStaticParams() {
+//   try {
+//     const pages = await fetchDocs<Page>('pages')
+//     // return pages?.map(({ slug }) => slug)
+//     pages.every(page => 'slug' in page)
+//   } catch (error) {
+//     return []
+//   }
+// }
+
 export async function generateStaticParams() {
   try {
     const pages = await fetchDocs<Page>('pages')
-    // return pages?.map(({ slug }) => slug)
-    pages.every(page => 'slug' in page)
+    if (!Array.isArray(pages)) return [] // add this line
+    return pages.map(({ slug }) => slug)
   } catch (error) {
     return []
   }
 }
+
 
 export async function generateMetadata({ params: { slug = 'home' } }): Promise<Metadata> {
   const { isEnabled: isDraftMode } = draftMode()
