@@ -97,8 +97,6 @@ export async function generateStaticParams() {
     return []
   }
 }
-
-
 // export async function generateStaticParams() {
 //   try {
 //     const products = await fetchDocs<ProductType>('products')
