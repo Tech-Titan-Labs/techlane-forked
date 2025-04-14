@@ -23,3 +23,5 @@ export const metadata: Metadata = {
     url: '/account',
   }),
 }
+
+export const dynamic = 'force-dynamic'
