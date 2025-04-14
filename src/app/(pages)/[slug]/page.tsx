@@ -100,12 +100,21 @@ export async function generateStaticParams() {
     if (!Array.isArray(pages)) return []
 
     return pages
-      .filter((page): page is Page => typeof page === 'object' && page !== null && 'slug' in page)
-      .map(page => page.slug)
+      .filter((page): page is Page => {
+        return (
+          typeof page === 'object' &&
+          page !== null &&
+          'slug' in page &&
+          typeof (page as any).slug === 'string'
+        )
+      })
+      .map(page => ({ slug: page.slug }))
   } catch (error) {
+    console.error('Error in generateStaticParams for pages:', error)
     return []
   }
 }
+
 
 export async function generateMetadata({ params: { slug = 'home' } }): Promise<Metadata> {
   const { isEnabled: isDraftMode } = draftMode()

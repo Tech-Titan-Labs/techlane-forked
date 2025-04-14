@@ -78,17 +78,26 @@ export async function generateStaticParams() {
   try {
     const products = await fetchDocs<ProductType>('products')
 
+    if (!Array.isArray(products)) return []
+
     return products
-      .filter(
-        (p): p is { slug: string } =>
-          typeof p === 'object' && p !== null && typeof (p as any).slug === 'string',
-      )
-      .map(p => ({ slug: p.slug }))
+      .filter((product): product is ProductType => {
+        return (
+          typeof product === 'object' &&
+          product !== null &&
+          'slug' in product &&
+          typeof (product as any).slug === 'string' &&
+          'id' in product &&
+          'title' in product
+        )
+      })
+      .map(product => ({ slug: product.slug }))
   } catch (error) {
-    console.error('Error in generateStaticParams:', error)
+    console.error('Error in generateStaticParams for products:', error)
     return []
   }
 }
+
 
 // export async function generateStaticParams() {
 //   try {
