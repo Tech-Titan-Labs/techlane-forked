@@ -63,16 +63,21 @@ export default async function Page({ params: { slug = 'home' } }) {
     <React.Fragment>
       {slug === 'home' ? (
         <section>
-          <Hero {...hero} />
+          {/* <Hero {...hero} /> */}
+          {hero && <Hero {...hero} />}
 
           <Gutter className={classes.home}>
-            <Categories categories={categories} />
+            {/* <Categories categories={categories} /> */}
+            <Categories categories={categories || []} />
+
             <Promotion />
           </Gutter>
         </section>
       ) : (
         <>
-          <Hero {...hero} />
+          {/* <Hero {...hero} /> */}
+          {hero && <Hero {...hero} />}
+
           <Blocks
             blocks={layout}
             disableTopPadding={!hero || hero?.type === 'none' || hero?.type === 'lowImpact'}
@@ -123,7 +128,7 @@ export async function generateMetadata({ params: { slug = 'home' } }): Promise<M
   try {
     page = await fetchDoc<Page>({
       collection: 'pages',
-      slug,
+      slug: 'home',
       draft: isDraftMode,
     })
   } catch (error) {
