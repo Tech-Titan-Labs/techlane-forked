@@ -97,3 +97,4 @@ export const metadata: Metadata = {
     url: '/orders',
   }),
 }
+export const dynamic = 'force-dynamic'
