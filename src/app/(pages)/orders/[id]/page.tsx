@@ -12,7 +12,7 @@ import { Price } from '../../../_components/Price'
 import { formatDateTime } from '../../../_utilities/formatDateTime'
 import { getMeUser } from '../../../_utilities/getMeUser'
 import { mergeOpenGraph } from '../../../_utilities/mergeOpenGraph'
-
+export const dynamic = 'force-dynamic'
 import classes from './index.module.scss'
 
 export default async function Order({ params: { id } }) {
