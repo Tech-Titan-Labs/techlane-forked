@@ -78,11 +78,27 @@ export async function generateStaticParams() {
   try {
     const products = await fetchDocs<ProductType>('products')
 
-    return products.filter(p => typeof p === 'object' && 'slug' in p).map(p => ({ slug: p.slug }))
+    return products
+      .filter(
+        (p): p is { slug: string } =>
+          typeof p === 'object' && p !== null && typeof (p as any).slug === 'string',
+      )
+      .map(p => ({ slug: p.slug }))
   } catch (error) {
+    console.error('Error in generateStaticParams:', error)
     return []
   }
 }
+
+// export async function generateStaticParams() {
+//   try {
+//     const products = await fetchDocs<ProductType>('products')
+
+//     return products.filter(p => typeof p === 'object' && 'slug' in p).map(p => ({ slug: p.slug }))
+//   } catch (error) {
+//     return []
+//   }
+// }
 
 export async function generateMetadata({ params: { slug } }): Promise<Metadata> {
   const { isEnabled: isDraftMode } = draftMode()
